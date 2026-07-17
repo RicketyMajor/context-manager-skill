@@ -1,0 +1,55 @@
+{
+    "name": "Context-Manager-Evals",
+    "description": "Pruebas de comportamiento para la skill Gestor de Contexto",
+    "evaluations": [
+        {
+            "name": "Init Context Directory",
+            "description": "Evalúa si el agente inicializa correctamente la estructura en un repositorio vacío.",
+            "input": "We are starting a new project to build an AI-agent Self-Healing Cluster. Please initialize the context manager structure.",
+            "expected_behavior": {
+                "files_created": [
+                    "/context/general/overview.md",
+                    "/context/general/glossary.md",
+                    "/context/decisions/log.md"
+                ],
+                "directories_created": [
+                    "/context/handoff",
+                    "/context/sources",
+                    "/context/specs"
+                ],
+                "content_verification": "The overview.md file must contain the phrase 'Self-Healing Cluster' in the Project Goal section."
+            }
+        },
+        {
+            "name": "Log Architectural Decision",
+            "description": "Evalúa si el agente puede registrar una decisión sin sobrescribir el historial existente.",
+            "input": "We need to fix a bug where the internal calendar module triggers a premature monthly reset on the 31st of the month. We've decided to migrate to the 'date-fns' library to handle these edge cases properly. Add this to the decisions log.",
+            "expected_behavior": {
+                "tools_called": [
+                    "fs.readFile",
+                    "fs.writeFile"
+                ],
+                "target_file": "/context/decisions/log.md",
+                "action": "append_top",
+                "content_verification": "A new entry with the status 'Accepted' and rationale about the 31st-day edge case must be added at the top of the file."
+            }
+        },
+        {
+            "name": "Generate Token-Limit Handoff",
+            "description": "Evalúa la capacidad de síntesis y estructuración del agente al momento de compilar un handoff.",
+            "input": "I'm running out of tokens. Let's do a handoff. We successfully set up the Redis Pub/Sub channels, but the containerized worker nodes are failing to authenticate with the master.",
+            "expected_behavior": {
+                "tools_called": [
+                    "fs.readFile",
+                    "fs.writeFile"
+                ],
+                "files_read": [
+                    "references/handoff-guide.md",
+                    "assets/handoff.md"
+                ],
+                "file_created_pattern": "/context/handoff/handoff-YYYY-MM-DD.md",
+                "content_verification": "The 'Worked' section must mention Redis Pub/Sub. The 'Failed' section must mention the worker node authentication failure."
+            }
+        }
+    ]
+}
