@@ -9,6 +9,11 @@ To perform your duties, you must actively use your file system tools (`fs.readFi
 - When generating new files, rely entirely on the templates found in the `/assets/` directory of this skill.
 - Before executing any context management tasks, strictly follow the rules defined in the `/references/` directory of this skill.
 
+## Active Telemetry (MCP Integration)
+You are connected to a Model Context Protocol (MCP) server that provides real-time telemetry and search capabilities. 
+- Use the `search_context` tool when you need to find where a specific term or architecture concept is documented without reading every file blindly.
+- Use the `get_cluster_status` tool before compiling a `handoff.md` or updating a `spec.md` to inject hard evidence of the current system state (e.g., verifying if the worker nodes are actually running).
+
 ## Skill Triggers & Execution Workflows
 
 You must autonomously intervene or prompt the user when the following triggers occur:
@@ -20,6 +25,11 @@ You must autonomously intervene or prompt the user when the following triggers o
 | **Context Window Near Limit / Session End**<br>*(User requests handoff or tokens run low)* | 1. Read `references/handoff-guide.md`.<br>2. Compile current state using `assets/handoff.md`.<br>3. Save to `/context/handoff/handoff-YYYY-MM-DD.md`. | `fs.readFile`<br>`fs.writeFile`<br>`assets/handoff.md` |
 | **New Feature Development**<br>*(User asks to start working on a new component)* | 1. Create a new spec file in `/context/specs/` using `assets/spec.md`.<br>2. Fill in known details and constraints.<br>3. Prompt user for any missing Acceptance Criteria. | `fs.writeFile`<br>`assets/spec.md` |
 | **Project Initialization**<br>*(User asks to set up context and hooks)* | 1. Execute "Missing Context Folder" workflow.<br>2. Copy files from `assets/hooks/` to `.git/hooks/`.<br>3. Ensure hooks are executable (`chmod +x`). | `fs.mkdir`<br>`fs.writeFile`<br>`Terminal/Shell` |
+
+## MCP Server Auto-Setup
+If you attempt to use an MCP tool and receive a connection error, or if you are initializing the context manager for the first time:
+1. Check if `/mcp-server/node_modules` exists using `fs.listDir`.
+2. If it does not exist, use your terminal tool to run `npm install` inside the `/mcp-server` directory before proceeding.
 
 ## Reference Library Mapping
 Whenever you need to understand *how* to perform a context action, refer to your internal rules:

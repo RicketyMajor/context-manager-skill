@@ -1,0 +1,12 @@
+{
+    "name": "context-manager-mcp",
+    "version": "1.0.0",
+    "description": "Servidor MCP local para la skill Context-Manager",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.0.0"
+    }
+}
