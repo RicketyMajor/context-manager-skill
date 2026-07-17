@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs';
 import path from 'path';
+import os from 'os';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
 
@@ -42,8 +43,12 @@ try {
     // Hacer ejecutables los hooks de git si existen
     const hooksDir = path.join(contextDir, 'assets', 'hooks');
     if (fs.existsSync(hooksDir)) {
-        execSync(`chmod +x ${path.join(hooksDir, '*')}`);
-        console.log('Git hooks configurados con permisos de ejecución.');
+        if (os.platform() !== 'win32') {
+            execSync(`chmod +x ${path.join(hooksDir, '*')}`);
+            console.log('Git hooks configurados con permisos de ejecución.');
+        } else {
+            console.log('Git hooks copiados (Permisos de ejecución omitidos en Windows).');
+        }
     }
 
     console.log('¡Context-Manager instalado! Pide a tu agente que lea el SKILL.md para comenzar.');
