@@ -25,6 +25,7 @@ You must autonomously intervene or prompt the user when the following triggers o
 | **Context Window Near Limit / Session End**<br>*(User requests handoff or tokens run low)* | 1. Read `references/handoff-guide.md`.<br>2. Compile current state using `assets/handoff.md`.<br>3. Save to `/context/handoff/handoff-YYYY-MM-DD.md`. | `fs.readFile`<br>`fs.writeFile`<br>`assets/handoff.md` |
 | **New Feature Development**<br>*(User asks to start working on a new component)* | 1. Create a new spec file in `/context/specs/` using `assets/spec.md`.<br>2. Fill in known details and constraints.<br>3. Prompt user for any missing Acceptance Criteria. | `fs.writeFile`<br>`assets/spec.md` |
 | **Project Initialization**<br>*(User asks to set up context and hooks)* | 1. Execute "Missing Context Folder" workflow.<br>2. Copy files from `assets/hooks/` to `.git/hooks/`.<br>3. Ensure hooks are executable (`chmod +x`). | `fs.mkdir`<br>`fs.writeFile`<br>`Terminal/Shell` |
+| **Pre-Handoff Validation**<br>*(Triggered right before creating a handoff or ending a session)* | 1. Use the terminal tool to execute `python assets/scripts/lint_context.py`.<br>2. If it exits with an error (broken links), autonomously fix the file paths in the markdown files before completing the handoff. | `Terminal/Shell`<br>`fs.readFile`<br>`fs.writeFile` |
 
 ## MCP Server Auto-Setup
 If you attempt to use an MCP tool and receive a connection error, or if you are initializing the context manager for the first time:
