@@ -19,6 +19,7 @@ You must autonomously intervene or prompt the user when the following triggers o
 | **Architectural Change Detected**<br>*(A new technology or architecture pattern is chosen)* | 1. Read `assets/decision-entry.md`.<br>2. Formulate the decision log.<br>3. Append it to the TOP of `/context/decisions/log.md`. | `fs.readFile`<br>`fs.writeFile`<br>`assets/decision-entry.md` |
 | **Context Window Near Limit / Session End**<br>*(User requests handoff or tokens run low)* | 1. Read `references/handoff-guide.md`.<br>2. Compile current state using `assets/handoff.md`.<br>3. Save to `/context/handoff/handoff-YYYY-MM-DD.md`. | `fs.readFile`<br>`fs.writeFile`<br>`assets/handoff.md` |
 | **New Feature Development**<br>*(User asks to start working on a new component)* | 1. Create a new spec file in `/context/specs/` using `assets/spec.md`.<br>2. Fill in known details and constraints.<br>3. Prompt user for any missing Acceptance Criteria. | `fs.writeFile`<br>`assets/spec.md` |
+| **Project Initialization**<br>*(User asks to set up context and hooks)* | 1. Execute "Missing Context Folder" workflow.<br>2. Copy files from `assets/hooks/` to `.git/hooks/`.<br>3. Ensure hooks are executable (`chmod +x`). | `fs.mkdir`<br>`fs.writeFile`<br>`Terminal/Shell` |
 
 ## Reference Library Mapping
 Whenever you need to understand *how* to perform a context action, refer to your internal rules:
