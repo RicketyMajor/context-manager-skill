@@ -1,0 +1,20 @@
+{
+    "name": "context-manager-skill",
+    "version": "1.0.0",
+    "description": "Una skill de IA para gestionar el contexto persistente de tus proyectos.",
+    "type": "module",
+    "bin": {
+        "install-context-manager": "./bin/install.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/RicketyMajor/context-manager-skill.git"
+    },
+    "keywords": [
+        "ai",
+        "agent",
+        "context",
+        "mcp",
+        "skill"
+    ]
+}
