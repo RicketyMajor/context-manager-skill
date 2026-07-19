@@ -10,7 +10,9 @@ This document defines the strict topology of the `/context` directory. As an AI 
 | `/context/handoff/` | Storage for session transition documents (`handoff-YYYY-MM-DD.md`). | **Immutable.** Once a handoff is created, do not edit it. Read the latest one to resume context. |
 | `/context/sources/index.md` | Directory mapping key resources, entry points, and documentation. | **Link only.** Do not paste source code here. Only file paths and URLs. |
 | `/context/specs/` | Individual markdown files for features (e.g., `health-check-spec.md`). | **Living documents.** Update status and criteria as development progresses. |
+| `.agents/AGENTS.md` | Workspace customizations and global agent rules (equivalent to CLAUDE.md). | **Living document.** Update when new project-wide rules or agent behaviors are established. |
 
 ## Global Constraints
 - **Do not create new subdirectories** inside `/context` without explicit user permission.
+- **Git Ignore:** The entire `/context/` directory must be ignored in version control via `.gitignore` to prevent cluttering the repository. However, `.agents/AGENTS.md` SHOULD be committed to the repository.
 - Always cross-reference. If a spec requires a specific architecture change, link to the relevant entry in `/decisions/log.md`.
